@@ -187,12 +187,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentPage(
-                                  product: widget.product,
-                                )));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => PaymentPage(
+                    //               total:,
+                    //               user: widget.user,
+                    //             )));
                   },
                 ),
                 const Spacer(),
