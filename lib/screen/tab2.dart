@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ara_optical_app/screen/payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ara_optical_app/model/user.dart';
@@ -375,6 +376,7 @@ class _TabPage2State extends State<TabPage2> {
       return;
     } else {
       showDialog(
+          // ignore: unnecessary_new
           builder: (context) => new AlertDialog(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -387,10 +389,16 @@ class _TabPage2State extends State<TabPage2> {
                   actions: <Widget>[
                     TextButton(
                       child: Text("Yes"),
-                      onPressed: () async {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => PaymentPage(
+                                    user: widget.user, total: _totalprice)));
+                      },
                     ),
                     TextButton(
-                        child: Text("No"),
+                        child: const Text("No"),
                         onPressed: () {
                           Navigator.of(context).pop();
                         }),
