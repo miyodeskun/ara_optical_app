@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ara_optical_app/const.dart';
 import 'package:ara_optical_app/screen/payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -232,12 +233,14 @@ class _TabPage2State extends State<TabPage2> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
-                          // SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: () {
                               _payDialog();
                             },
                             child: const Text("CHECKOUT"),
+                            style: ElevatedButton.styleFrom(
+                              primary: kPrimayColor,
+                            ),
                           ),
                         ],
                       )),
