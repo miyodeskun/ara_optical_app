@@ -2,7 +2,6 @@ import 'package:ara_optical_app/screen/aboutpage.dart';
 import 'package:flutter/material.dart';
 import 'package:ara_optical_app/model/user.dart';
 import 'package:ara_optical_app/screen/loginpage.dart';
-import 'historypage.dart';
 import 'registerpage.dart';
 
 class TabPage3 extends StatefulWidget {
@@ -40,6 +39,10 @@ class _TabPage3State extends State<TabPage3> {
           widget.user.name!,
           style: TextStyle(fontSize: 40),
         ),
+        Text(
+          widget.user.email!,
+          style: TextStyle(fontSize: 14),
+        ),
         const SizedBox(
           height: 20,
         ),
@@ -60,15 +63,6 @@ class _TabPage3State extends State<TabPage3> {
               ),
               const Divider(
                 height: 2,
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PaymentHistory()));
-                },
-                child: const Text("PAYMENT HISTORY"),
               ),
               const Divider(
                 height: 2,
