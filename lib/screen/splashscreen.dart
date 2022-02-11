@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:ara_optical_app/model/config.dart';
 import 'package:ara_optical_app/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'adminpage.dart';
 import 'mainpage.dart';
 
 class SplashPage extends StatefulWidget {
@@ -75,7 +74,6 @@ class _SplashPageState extends State<SplashPage> {
             id: "na",
             name: "na",
             email: "na",
-            address: "na",
             regdate: "na",
             roles: "na",
           );
@@ -92,7 +90,6 @@ class _SplashPageState extends State<SplashPage> {
         id: "na",
         name: "na",
         email: "na",
-        address: "na",
         regdate: "na",
         roles: "na",
       );

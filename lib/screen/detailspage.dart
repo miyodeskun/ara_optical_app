@@ -4,11 +4,24 @@ import 'package:ara_optical_app/model/product.dart';
 import 'package:ara_optical_app/screen/payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ndialog/ndialog.dart';
+import 'package:http/http.dart' as http;
+import '../model/user.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   final Product product;
+  final User user;
+
+  DetailsScreen({Key? key, required this.user, required this.product})
+      : super(key: key);
+
+  @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   late double screenHeight, screenWidth, resWidth;
-  DetailsScreen({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +46,7 @@ class DetailsScreen extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back_ios_new)),
             const SizedBox(height: 2),
             Text(
-              product.prid! + ". " + product.prname!,
+              widget.product.prid! + ". " + widget.product.prname!,
               textAlign: TextAlign.left,
               style: const TextStyle(
                 color: Colors.black,
@@ -57,7 +70,7 @@ class DetailsScreen extends StatelessWidget {
                   height: screenHeight / 3,
                   imageUrl: Config.server +
                       "/araoptical/images/products/" +
-                      product.prid! +
+                      widget.product.prid! +
                       ".png",
                 ),
               ],
@@ -97,7 +110,7 @@ class DetailsScreen extends StatelessWidget {
                         color: kPrimayColor,
                         borderRadius: BorderRadius.circular(5.0)),
                     child: Text(
-                      "RM " + product.prprice!,
+                      "RM " + widget.product.prprice!,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
@@ -110,7 +123,7 @@ class DetailsScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 5, top: 5),
                   child: Text(
-                    product.prqty! + " units",
+                    widget.product.prqty! + " units",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.black,
@@ -146,7 +159,7 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
               child: Text(
-                product.prdesc!,
+                widget.product.prdesc!,
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -167,7 +180,7 @@ class DetailsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 5, bottom: 5),
               child: Text(
-                product.prdate!,
+                widget.product.prdate!,
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -176,6 +189,7 @@ class DetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 30),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
                   child: Container(
@@ -194,26 +208,57 @@ class DetailsScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PaymentPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PaymentPage(
+                                  product: widget.product,
+                                )));
                   },
                 ),
-                Spacer(),
-                IconButton(
-                  padding: const EdgeInsets.all(0),
-                  tooltip: "Add to cart",
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.add_shopping_cart,
-                    size: 50,
-                    color: kPrimayColor,
-                  ),
-                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  child: IconButton(
+                      onPressed: () {
+                        _addtocart();
+                      },
+                      icon: Icon(
+                        Icons.add_shopping_cart_outlined,
+                        color: kPrimayColor,
+                        size: 45,
+                      )),
+                )
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  _addtocart() async {
+    ProgressDialog progressDialog = ProgressDialog(context,
+        message: Text("Adding to cart"), title: Text("Progress..."));
+    progressDialog.show();
+    await Future.delayed(Duration(seconds: 1));
+    http.post(
+        Uri.parse(
+          Config.server + "/araoptical/php/new_cart.php",
+        ),
+        body: {
+          "user_email": widget.user.email,
+          "prid": widget.product.prid,
+        }).then((response) {
+      if (response.body == "Failed") {
+        Fluttertoast.showToast(
+            msg: "Failed", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Success", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
+        Navigator.pop(context);
+      }
+    });
+    progressDialog.dismiss();
   }
 }

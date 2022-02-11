@@ -18,6 +18,7 @@ class TabPage1 extends StatefulWidget {
 
 class _TabPage1State extends State<TabPage1> {
   List productlist = [];
+  List userlist = [];
   String titlecenter = "Loading data...";
   late double screenHeight, screenWidth, resWidth;
   int scrollcount = 10;
@@ -142,6 +143,14 @@ class _TabPage1State extends State<TabPage1> {
   }
 
   _productDetails(int index) async {
+    User user = User(
+      email: widget.user.email,
+      name: widget.user.name,
+      id: widget.user.id,
+      regdate: widget.user.regdate,
+      roles: widget.user.roles,
+    );
+
     Product product = Product(
       prid: productlist[index]['prid'],
       prname: productlist[index]['prname'],
@@ -155,6 +164,7 @@ class _TabPage1State extends State<TabPage1> {
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => DetailsScreen(
+                  user: user,
                   product: product,
                 )));
   }
