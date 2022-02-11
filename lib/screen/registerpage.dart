@@ -51,7 +51,18 @@ class _RegisterPageState extends State<RegisterPage> {
         Container(
           color: kPrimayColor,
         ),
-         Positioned(child:  const Text("Sign Up", style: TextStyle(fontSize: 40, fontFamily: 'League Spartan', color: Colors.white), textAlign: TextAlign.center,), top: screenHeight * 0.12, right: screenWidth/3.4,),
+        Positioned(
+          child: const Text(
+            "Sign Up",
+            style: TextStyle(
+                fontSize: 40,
+                fontFamily: 'League Spartan',
+                color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+          top: screenHeight * 0.12,
+          right: screenWidth / 3.4,
+        ),
       ],
     );
   }
@@ -211,12 +222,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.amber,
+                  primary: Colors.amber,
                   fixedSize: Size(screenWidth / 1.5, 50)),
-              child: const Text('Register', style: TextStyle(color: kTextColor),),
+              child: const Text(
+                'Register',
+                style: TextStyle(color: kTextColor),
+              ),
               onPressed: _registerAccountDialog,
             ),
             const SizedBox(
@@ -412,7 +428,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String _name = _nameEditingController.text;
     String _email = _emailditingController.text;
     String _pass = _passEditingController.text;
-    
+
     FocusScope.of(context).unfocus();
     ProgressDialog progressDialog = ProgressDialog(context,
         message: const Text("Registration in progress.."),

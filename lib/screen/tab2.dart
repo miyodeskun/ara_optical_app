@@ -45,21 +45,11 @@ class _TabPage2State extends State<TabPage2> {
               )
             : Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text("Special Deals",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Icon(Icons.local_offer)
-                    ],
-                  ),
                   Flexible(
                     flex: 10,
                     child: ListView.builder(
                         //shrinkWrap: true,
                         itemCount: _cartList.length,
-                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
                               child: Row(
@@ -69,7 +59,7 @@ class _TabPage2State extends State<TabPage2> {
                                   child: Container(
                                     child: CachedNetworkImage(
                                       imageUrl: Config.server +
-                                          "/araoptical/images/product/" +
+                                          "/araoptical/images/products/" +
                                           _cartList[index]["prid"] +
                                           ".png",
                                       placeholder: (context, url) =>
@@ -283,10 +273,9 @@ class _TabPage2State extends State<TabPage2> {
           _cartList = jsondata["cart"];
           _money = jsondata["price"];
           print(_money);
-          //double _total = _money[0]['total'];
         });
       }
-      _totalprice = _money[0]['total'].toDouble(); // _money[0]['total'];
+      _totalprice = _money[0]['total'].toDouble();
 
       print(_totalprice);
     });
@@ -303,7 +292,7 @@ class _TabPage2State extends State<TabPage2> {
           "email": widget.user.email,
           "op": s,
           "prid": _cartList[index]['prid'],
-          "prqty": _cartList[index]['cartqty']
+          "qty": _cartList[index]['cartqty']
         }).then((response) {
       if (response.body == "Success") {
         Fluttertoast.showToast(
@@ -313,7 +302,10 @@ class _TabPage2State extends State<TabPage2> {
         _loadMyCart();
       } else {
         Fluttertoast.showToast(
-            msg: "Failed", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
+          msg: "Failed",
+          toastLength: Toast.LENGTH_SHORT,
+          fontSize: 16.0,
+        );
       }
       progressDialog.dismiss();
     });
@@ -328,7 +320,7 @@ class _TabPage2State extends State<TabPage2> {
     http.post(Uri.parse(Config.server + "/araoptical/php/delete_cart.php"),
         body: {
           "email": widget.user.email,
-          "product_id": _cartList[index]['prid']
+          "prid": _cartList[index]['prid']
         }).then((response) {
       if (response.body == "Success") {
         Fluttertoast.showToast(
@@ -338,7 +330,7 @@ class _TabPage2State extends State<TabPage2> {
         _loadMyCart();
       } else {
         Fluttertoast.showToast(
-            msg: "Failed to delete",
+            msg: "Failed To Delete",
             toastLength: Toast.LENGTH_SHORT,
             fontSize: 16.0);
       }

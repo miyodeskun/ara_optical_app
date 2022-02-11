@@ -166,27 +166,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 5, top: 5, bottom: 5),
-              child: Text(
-                "Product Created:",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, bottom: 5),
-              child: Text(
-                widget.product.prdate!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-            ),
             SizedBox(height: 30),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +202,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       onPressed: () {
                         _addtocart();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_shopping_cart_outlined,
                         color: kPrimayColor,
                         size: 45,
@@ -252,10 +231,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
         }).then((response) {
       if (response.body == "Failed") {
         Fluttertoast.showToast(
-            msg: "Failed", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
+            msg: "Failed!", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
       } else {
         Fluttertoast.showToast(
-            msg: "Success", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
+            msg: "Success!", toastLength: Toast.LENGTH_SHORT, fontSize: 16.0);
         Navigator.pop(context);
       }
     });

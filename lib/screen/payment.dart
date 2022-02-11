@@ -35,14 +35,7 @@ class PaymentPage extends StatelessWidget {
             height: 200,
             decoration: BoxDecoration(),
             child: Column(
-              children: [
-                CachedNetworkImage(
-                  fit: BoxFit.fill,
-                  height: screenHeight / 3,
-                  imageUrl:
-                      Config.server + "/araoptical/images/products/" + ".png",
-                ),
-              ],
+              children: [],
             ),
           ),
           Text("lmao"),
