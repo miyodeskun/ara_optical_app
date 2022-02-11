@@ -1,45 +1,76 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:ara_optical_app/const.dart';
-import 'package:ara_optical_app/model/product.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ara_optical_app/model/config.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
-import '../model/config.dart';
-import '../model/product.dart';
+import 'package:ara_optical_app/model/user.dart';
 
-class PaymentPage extends StatelessWidget {
-  final Product product;
+class PaymentPage extends StatefulWidget {
+  final User user;
+  final double total;
+
+  const PaymentPage({Key? key, required this.user, required this.total})
+      : super(key: key);
+
+  @override
+  State<PaymentPage> createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
   late double screenHeight, screenWidth, resWidth;
-  PaymentPage({Key? key, required this.product}) : super(key: key);
+  @override
+  void initState() {
+    super.initState();
+    // Enable virtual display.
+    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Product product;
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
+
+    if (screenWidth <= 600) {
+      resWidth = screenWidth;
+    } else {
+      resWidth = screenWidth * 0.75;
+    }
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Payment"),
+        title: const Text('Billing'),
         backgroundColor: kPrimayColor,
+        centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              "Your Item: ",
-              style: TextStyle(fontSize: 18),
-            ),
+      body: Center(
+        child: SizedBox(
+          height: screenHeight,
+          width: screenWidth,
+          child: WebView(
+            initialUrl: Config.server +
+                '/araoptical/php/payment.php?email=' +
+                widget.user.email.toString() +
+                '&name=' +
+                widget.user.name.toString() +
+                '&amount=' +
+                widget.total.toString(),
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              _controller.complete(webViewController);
+            },
+            onProgress: (int progress) {
+              print('WebView is loading (progress : $progress%)');
+            },
+            onPageStarted: (String url) {
+              print('Page started loading: $url');
+            },
+            onPageFinished: (String url) {
+              print('Page finished loading: $url');
+            },
           ),
-          Container(
-            height: 200,
-            decoration: BoxDecoration(),
-            child: Column(
-              children: [],
-            ),
-          ),
-          Text("lmao"),
-        ],
+        ),
       ),
     );
   }
