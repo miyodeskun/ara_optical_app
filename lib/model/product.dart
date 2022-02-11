@@ -2,9 +2,6 @@ class Product {
   String? prid;
   String? prowner;
   String? prname;
-  String? user_email;
-  String? user_name;
-  String? user_phone;
   String? prdesc;
   String? prprice;
   String? prqty;
@@ -15,9 +12,6 @@ class Product {
       required this.prname,
       required this.prowner,
       required this.prdesc,
-      required this.user_email,
-      required this.user_name,
-      required this.user_phone,
       required this.prprice,
       required this.prqty,
       required this.prdate});

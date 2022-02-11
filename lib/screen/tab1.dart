@@ -143,16 +143,14 @@ class _TabPage1State extends State<TabPage1> {
 
   _productDetails(int index) async {
     Product product = Product(
-        prid: productlist[index]['prid'],
-        prname: productlist[index]['prname'],
-        prdesc: productlist[index]['prdesc'],
-        prdate: productlist[index]['prdate'],
-        prqty: productlist[index]['prqty'],
-        prprice: productlist[index]['prprice'],
-        prowner: productlist[index]['prowner'],
-        user_email: '',
-        user_name: '',
-        user_phone: '');
+      prid: productlist[index]['prid'],
+      prname: productlist[index]['prname'],
+      prdesc: productlist[index]['prdesc'],
+      prdate: productlist[index]['prdate'],
+      prqty: productlist[index]['prqty'],
+      prprice: productlist[index]['prprice'],
+      prowner: productlist[index]['prowner'],
+    );
     await Navigator.push(
         context,
         MaterialPageRoute(

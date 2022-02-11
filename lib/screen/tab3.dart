@@ -26,54 +26,66 @@ class _TabPage3State extends State<TabPage3> {
     } else {
       resWidth = screenWidth * 0.75;
     }
-    
+
     return Center(
         child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const SizedBox(height: 20),
+        const Text(
+          "Welcome back!",
+          style: TextStyle(fontSize: 20),
+        ),
+        Text(
+          widget.user.name!,
+          style: TextStyle(fontSize: 40),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
         ListView(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
             shrinkWrap: true,
             children: [
-          MaterialButton(
-            onPressed: _registerAccountDialog,
-            child: const Text("NEW REGISTRATION"),
-          ),
-          const Divider(
-            height: 2,
-          ),
-          MaterialButton(
-            onPressed: _loginDialog,
-            child: const Text("LOGIN"),
-          ),
-          const Divider(
-            height: 2,
-          ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PaymentHistory()));
-            },
-            child: const Text("PAYMENT HISTORY"),
-          ),
-          const Divider(
-            height: 2,
-          ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const AboutPage()));
-            },
-            child: const Text("ABOUT US"),
-          ),
-          const Divider(
-            height: 2,
-          ),
-        ]),
+              MaterialButton(
+                onPressed: _registerAccountDialog,
+                child: const Text("NEW REGISTRATION"),
+              ),
+              const Divider(
+                height: 2,
+              ),
+              MaterialButton(
+                onPressed: _loginDialog,
+                child: const Text("LOGIN"),
+              ),
+              const Divider(
+                height: 2,
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PaymentHistory()));
+                },
+                child: const Text("PAYMENT HISTORY"),
+              ),
+              const Divider(
+                height: 2,
+              ),
+              MaterialButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AboutPage()));
+                },
+                child: const Text("ABOUT US"),
+              ),
+              const Divider(
+                height: 2,
+              ),
+            ]),
       ],
     ));
   }

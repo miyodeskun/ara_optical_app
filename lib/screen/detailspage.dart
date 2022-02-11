@@ -1,9 +1,9 @@
 import 'package:ara_optical_app/const.dart';
 import 'package:ara_optical_app/model/config.dart';
 import 'package:ara_optical_app/model/product.dart';
+import 'package:ara_optical_app/screen/payment.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Product product;
@@ -174,13 +174,42 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.add_shopping_cart,
-                size: 50,
-                color: kPrimayColor,
-              ),
+            SizedBox(height: 30),
+            Row(
+              children: [
+                InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: kPrimayColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: const Text(
+                      "Buy Now",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PaymentPage()));
+                  },
+                ),
+                Spacer(),
+                IconButton(
+                  padding: const EdgeInsets.all(0),
+                  tooltip: "Add to cart",
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.add_shopping_cart,
+                    size: 50,
+                    color: kPrimayColor,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
