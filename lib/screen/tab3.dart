@@ -64,9 +64,6 @@ class _TabPage3State extends State<TabPage3> {
               const Divider(
                 height: 2,
               ),
-              const Divider(
-                height: 2,
-              ),
               MaterialButton(
                 onPressed: () {
                   Navigator.push(
